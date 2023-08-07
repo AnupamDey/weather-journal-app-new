@@ -27,11 +27,18 @@ fetch('/getkey')
     API_KEY = `${id}${secretKey}${unit}`
 });
 
-function actionSubmit(e) {
-    event.preventDefault();
+document.getElementById('submitInfo').addEventListener('click',actionSubmit);
 
-    const zipcode = document.getElementById("zip-code").value;
-    const feelings = document.getElementById("feelings-area").value;
+function actionSubmit() {
+
+    const zipcodeInp = document.getElementById("zip-code");
+    const feelingsInp = document.getElementById("feelings-area");
+    const zipCode = zipcodeInp.value;
+    const feelings = feelingsInp.value;
+    console.log(zipCode);
+    console.log(feelings);
+    zipcodeInp.value = '';
+    feelingsInp.value = '';
 
     getWeatherInfo(baseURL, zipCode, API_KEY)
     .then((data) => {
@@ -40,42 +47,45 @@ function actionSubmit(e) {
         date: today,
         temp: data.main.temp,
         description: data.weather[0].description,
-        icon: data.weather[0].icon,
+        humidityVal: data.main.humidity,
+        windVal: data.wind.speed,
         content: feelings
         }).then((newData) => {
-        temperature.innerHTML = `Temp is: ` + Math.round(newData.temp) + `\u00B0C`;
-        description.innerHTML = `Desc is: ` + newData.description;
-        feels.innerHTML = 'Today you are feeling: ' + newData.content;
+            temperature.innerHTML = `Temp is: ` + Math.round(newData.temp) + `\u00B0C`;
+            description.innerHTML = `Desc is: ` + newData.description;
+            humidity.innerHTML = newData.humidityVal;
+            wind.innerHTML = newData.windVal;
+            feels.innerHTML = 'Today you are feeling: ' + newData.content;
         });
     });
 }
 
 
-const getWeatherInfo = async (baseUrl, zipCode, apiKey) => {
-const res = await fetch(baseUrl + zipCode + apiKey)
-try {
-    const data = await res.json()
-    return data
-} catch(error) {
-    console.log("error",error)
-    throw error;
-}
+const getWeatherInfo = async (baseURL, zipCode, API_KEY) => {
+    const res = await fetch(baseURL + zipCode + API_KEY);
+    try {
+        const data = await res.json();
+        return data;
+    } catch(error) {
+        console.log("error",error);
+        throw error;
+    }
 }
 
 const postWeatherInfo = async (url='', data={}) => {
-const response = await fetch(url, {
-    method:'POST',
-    credentials:'same-origin',
-    headers:{
-        'content-type':'application/json'
-    },
-    body: JSON.stringify(data)
-}) 
-try {
-    const newData = await response.json()
-    console.log(newData)
-    return newData
-} catch(error) {
-    console.log("error",error)
-}
+    const response = await fetch(url, {
+        method:'POST',
+        credentials:'same-origin',
+        headers:{
+            'content-type':'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+    try {
+        const newData = await response.json();
+        console.log(newData);
+        return newData;
+    } catch(error) {
+        console.log("error",error);
+    }
 }
