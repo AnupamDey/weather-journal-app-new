@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Weather Journal</title>
+<link href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap" rel="stylesheet">
+<!-- <link rel="stylesheet" href="../fontawesome-free-6.4.0-web/css/all.min.css"> -->
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class ="holder-headline">
+      Weather Journal App
+    </div>
+    
+    <div class="search-box">
+      <input type="text" placeholder="Enter zip code(US only)" id="zip-code">
+    </div>
+    <div class="feelings-box">
+      <textarea placeholder="How are you feeling?" id="feelings" cols="10" rows="10" id="feelings-area"></textarea>
+      <button class="fa-solid fa-magnifying-glass"></button>
+    </div>
+
+    <div class="not-found">
+      <img src="../images/NA.png" alt="">
+      <p>Not available!!</p>
+    </div>
+
+    <div class="weather-box">
+      <img src="" alt="">
+      <p class="temp"></p>
+      <p class="desc"></p>
+    </div>
+
+    <div class="weather-details">
+      <div class="humidity">
+        <i class="fa-solid fa-water"></i>
+        <div class="deets">
+          <span></span>
+          <p>Humidity</p>
+        </div>
+      </div>
+      <div class="wind">
+        <i class="fa-solid fa-wind"></i>
+        <div class="deets">
+          <span></span>
+          <p>Wind Speed</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="feelings-container">
+      <p class="feelings-display">You are feeling: </p>
+    </div>
+
+
+  </div>
+  
+
+  <script src="../fontawesome-free-6.4.0-web/js/all.js"></script>
+  <script src="app.js" type="text/javascript"></script>
+
+</body>
+</html>
