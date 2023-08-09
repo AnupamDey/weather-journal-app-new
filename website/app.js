@@ -4,7 +4,6 @@ const id = '&APPID=';
 const baseURL = "https://api.openweathermap.org/data/2.5/weather?q=";
 let API_KEY = '';
 
-// Create a new date instance dynamically with JS
 const date = new Date()
 const hour = date.getHours()
 const day = date.getDate()
@@ -18,6 +17,11 @@ const description = document.querySelector('.weather-box .desc');
 const humidity = document.querySelector('.weather-details .humidity span');
 const wind = document.querySelector('.weather-details .wind span');
 const feels = document.querySelector('.feelings-container .feelings-display');
+const datefield = document.querySelector('.weather-box .date');
+
+const weatherBox = document.querySelector('.weather-box');
+const weatherDetails = document.querySelector('.weather-details');
+const feelingsContainer = document.querySelector('.feelings-container');
 
 // Fetch API_KEY from server.js 
 fetch('/getkey')
@@ -31,14 +35,8 @@ document.getElementById('submitInfo').addEventListener('click',actionSubmit);
 
 function actionSubmit() {
 
-    const zipcodeInp = document.getElementById("zip-code");
-    const feelingsInp = document.getElementById("feelings-area");
-    const zipCode = zipcodeInp.value;
-    const feelings = feelingsInp.value;
-    console.log(zipCode);
-    console.log(feelings);
-    zipcodeInp.value = '';
-    feelingsInp.value = '';
+    const zipCode = document.getElementById("zip-code").value;
+    const feelings = document.getElementById("feelings").value;
 
     getWeatherInfo(baseURL, zipCode, API_KEY)
     .then((data) => {
@@ -50,12 +48,17 @@ function actionSubmit() {
         humidityVal: data.main.humidity,
         windVal: data.wind.speed,
         content: feelings
-        }).then((newData) => {
-            temperature.innerHTML = `Temp is: ` + Math.round(newData.temp) + `\u00B0C`;
-            description.innerHTML = `Desc is: ` + newData.description;
-            humidity.innerHTML = newData.humidityVal;
-            wind.innerHTML = newData.windVal;
-            feels.innerHTML = 'Today you are feeling: ' + newData.content;
+        }).then((resData) => {
+            temperature.innerHTML = `Temperature is: ` + Math.round(resData.temp) + `\u00B0C`;
+            description.innerHTML = `Description : ` + resData.description;
+            datefield.innerHTML = `Today's Date ` + resData.date;
+            humidity.innerHTML = data.main.humidity + '%';
+            wind.innerHTML = Math.ceil(data.wind.speed) + ' mph';
+            feels.innerHTML = 'Today you are feeling: ' + resData.content;
+
+            weatherBox.classList.add('fadeIn');
+            weatherDetails.classList.add('fadeIn');
+            feelingsContainer.classList.add('fadeIn');
         });
     });
 }
@@ -68,7 +71,6 @@ const getWeatherInfo = async (baseURL, zipCode, API_KEY) => {
         return data;
     } catch(error) {
         console.log("error",error);
-        throw error;
     }
 }
 
@@ -82,9 +84,9 @@ const postWeatherInfo = async (url='', data={}) => {
         body: JSON.stringify(data)
     });
     try {
-        const newData = await response.json();
-        console.log(newData);
-        return newData;
+        const resData = await response.json();
+        console.log(resData);
+        return resData;
     } catch(error) {
         console.log("error",error);
     }
