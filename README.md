@@ -4,7 +4,7 @@ Udacity Front-End Web Developer Nano-degree - Web APIs and Asynchronous Applicat
 
 Project Rubric: [rubric](https://review.udacity.com/#!/rubrics/4671/view)
 
-Live Link: [Link]
+Live Link: [Link](https://weather-journal-app-udacity-fend.onrender.com/)
 
 ## Install
 
@@ -12,7 +12,7 @@ Run the command 'npm install' to install required dependencies (npm install expr
 
 ## Start
 
-The project can be run by running the command "node server.js" in the root directory and then opening http://localhost:8002/ in browser.
+The project can be run by running the command "npm run start" in the root directory and then opening http://localhost:8002/ in browser.
 
 ## Overview
 
@@ -20,8 +20,5 @@ This project requires you to create an asynchronous web app that uses Web API an
 
 ## Instructions
 
-This will require modifying the `server.js` file and the `website/app.js` file. You can see `index.html` for element references, and once you are finished with the project steps, you can use `css/styles.css` to style your application to customized perfection.
+This will require modifying the `server.js` file and the `website/app.js` file. You can see `index.html` for element references, and once you are finished with the project steps, you can use `style.css` to style your application to customized perfection.
 
-## Extras
-
-If you are interested in testing your code as you go, you can use `tests.js` as a template for writing and running some basic tests for your code.

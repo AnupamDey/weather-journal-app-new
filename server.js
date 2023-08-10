@@ -21,9 +21,14 @@ app.get('/getkey', (req, res) => {
     res.send(key);
 });
 
+app.get('/all', (req, res) => {
+    console.log(req);
+    res.send(projectData);
+});
+
 app.post('/post', (req, res) => {
-    console.log('POST Request Successful')
-    console.log(req.body)
+    console.log('POST Request Successful');
+    console.log(req.body);
   
     projectData = {
       date: req.body.date,
@@ -32,11 +37,6 @@ app.post('/post', (req, res) => {
       content: req.body.content
     }
   
-    res.send(projectData)
-    console.log(projectData)
-});
-
-app.get('/all', (req, res) => {
-    console.log(req)
-    res.send(projectData)
+    res.send(projectData);
+    console.log(projectData);
 });
